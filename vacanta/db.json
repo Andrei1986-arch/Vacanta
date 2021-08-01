@@ -1,0 +1,30 @@
+[
+    {
+        "id" : 1,
+      "name": "backpack",
+      "quantity": 1,
+      "size": "large",
+      "packed": false
+    },
+    {
+        "id":2,
+      "name": "medkit",
+      "quantity": 1,
+      "size": "small",
+      "packed": false
+    },
+    {
+      "id": 3,
+      "name": "trekking shoes",
+      "quantity": 1,
+      "size": "medium",
+      "packed": false
+    },
+    {
+      "id": 4,
+      "name": "t shirt",
+      "quantity": 1,
+      "size": "mare",
+      "packed": false
+    }
+  ]
