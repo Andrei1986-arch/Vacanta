@@ -1,8 +1,8 @@
 
-const Items = ({items}) => {
+const Items = ({items , onDisplay}) => {
     return (
         <>
-        {items.map((item) =>(
+        {items.map((item , index) =>(
             <h3 key={item.id}>{`${item.name}  ${item.quantity} pcs`}</h3>
         ))}
         </>

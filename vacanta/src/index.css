@@ -4,18 +4,18 @@ body{
 }
 
 .container{
-  background-color: antiquewhite;
-  max-width: 800px;
+  background-image: url("./Components/images/headerImage.jpg");
+  max-width: auto;
   margin: 30px auto;
   overflow: auto;
   min-height: 500px;
   border: 1px solid blue;
-  border-radius: 5px;
+  border-radius: 10px;
   padding: 10px;
 }
 
 .header{
-  background-color: aquamarine;
+  background-color: rgba(127, 255, 212, 0.205);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -36,13 +36,15 @@ body{
   margin: 10px
 }
 
+
+
 .button-block {
-  display: block;
-  width: 100%;
+  display: flex;
+  width: 35%;
 }
 
 .trip-form{
-  background: rgb(235, 236, 169);
+  background: rgb(235, 236, 169 , 0.3);
   margin: 5px;
   padding: 10px 20px;
   font-size: large;
@@ -54,28 +56,67 @@ body{
 }
 
 .form-control label {
+  background-color: rgba(240, 255, 255, 0.486);
+  color: aqua;
   display: block;
   font-size: 18px;
+  width:35%;
 }
 
 .form-control input {
   font-size: 18px;
-  width: 100%;
+  width: 35%;
   margin: 5px;
   height: 30px;
   padding: 3px 5px;
+  border: solid 5px grey ;
 }
 
 .date input{
-  width: auto;
+  width: 35%;
 }
 
 .submitBtn{
   display:block;
-  width: 100%;
+  width: auto;
+  border-radius: 15px;
+  padding: 10px;
   height: 3em;
   background-color: blue;
   color: rgb(250, 234, 4);
   font-size: large;
+  margin-left: 5%;
 }
 
+.pack-form{
+  background-color: rgba(203, 247, 232, 0.685);
+  margin: 10px;
+  padding: 10px;
+}
+
+#item-list{
+  min-width: 600px;
+  min-height: 200px;
+}
+
+table{
+  border: 2px , solid , rgb(80, 77, 77);
+  border-collapse: collapse;
+  padding: auto;
+}
+
+
+table th{
+  border: 1px solid black;
+  padding-left: 2em;
+  padding-right: 2em;
+  text-align: center;
+}
+
+table td {
+  border: 1px solid black;
+  padding-left: 2em;
+  padding-right: 2em;
+  text-align: center;
+  
+}

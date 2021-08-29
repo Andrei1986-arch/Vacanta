@@ -1,6 +1,8 @@
 
 import PropTypes from 'prop-types'
-const Button = ({color , text , onNewTrip}) => {
+// cand se apasa pe btn  "Set new trip" trebuie
+// sa apara formularul pt o noua calatorie
+const ButtonTrip = ({color , text , onNewTrip}) => {
     return (
        <button className="button"
         onClick = {onNewTrip}
@@ -11,14 +13,14 @@ const Button = ({color , text , onNewTrip}) => {
     )
 }
 
-Button.defaultProps = {
+ButtonTrip.defaultProps = {
     color: "blue"
 }
 
-Button.propTypes = {
+ButtonTrip.propTypes = {
     text: PropTypes.string,
     color: PropTypes.string,
     onClick: PropTypes.func
 }
 
-export default Button
+export default ButtonTrip

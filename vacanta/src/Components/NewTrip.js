@@ -5,7 +5,10 @@ const NewTrip = ({onNewTrip}) => {
     const [tripDepDay , setTripDepDay] = useState("")
     const [tripDuration , setTripDuration] = useState()
     const [nbOfPersons , setNbOfPersons] = useState()
-
+    // destination it has to correspond to one of  the countries in database
+    //tripDuration will act like a filter for items ex:weather hot or cold
+    // tripDuration it will help us to calculate the number of item we need
+    // number of persons it will be a multiplier of the items selected
     const onSubmit = (e) => {
         e.preventDefault()
 
@@ -14,15 +17,28 @@ const NewTrip = ({onNewTrip}) => {
             return;
         }
 
-        onNewTrip({destination , tripDepDay , tripDuration , nbOfPersons})
+       // onNewTrip({destination , tripDepDay , tripDuration , nbOfPersons})
 
         setDestination("")
         setTripDepDay("")
-        setTripDuration()
-        setNbOfPersons()
+        setTripDuration(0)
+        setNbOfPersons(0)
+    } // end of onSubmit
+
+    const getData = async () => {
+        console.log(destination);
+        console.log(tripDepDay);
+        console.log(tripDuration);
+        console.log(nbOfPersons);
+        let requestURL = "http://localhost/6000/plan_trip?dest=" + destination
+                                                                +"&date=" + String(tripDepDay)
+                                                                +"&duration=" + String(tripDuration)
+                                                                +"&nrPersons=" + String(nbOfPersons);
+        console.log(requestURL);
+        // const res = await fetch(requestURL);
+        //http://localhost/6000/plan_trip?dest=rom&date=2021-08-22&duration=5&nrPersons=3
 
     }
-
 
     return (
         <form className = "trip-form" onSubmit={onSubmit}>
@@ -66,7 +82,7 @@ const NewTrip = ({onNewTrip}) => {
 
             </div>
 
-            <input type="submit" value="Display items"  className = "submitBtn" />
+            <input type="submit" value="Display items to pack"  className = "submitBtn" onClick={getData}/>
         </form>
     )
 }
