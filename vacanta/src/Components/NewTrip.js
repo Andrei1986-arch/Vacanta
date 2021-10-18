@@ -1,10 +1,14 @@
-import { useState } from "react";
+     import { useState } from "react";
+import NewPack from "./NewPack";
+import axios from 'axios';
 
 const NewTrip = ({onNewTrip}) => {
     const [destination , setDestination] = useState("")
     const [tripDepDay , setTripDepDay] = useState("")
-    const [tripDuration , setTripDuration] = useState()
-    const [nbOfPersons , setNbOfPersons] = useState()
+    const [tripDuration , setTripDuration] = useState();
+    const [nbOfPersons , setNbOfPersons] = useState();
+    const [tripData, setTripData] = useState();
+    const [receivedData, setReceivedData] = useState(false);
     // destination it has to correspond to one of  the countries in database
     //tripDuration will act like a filter for items ex:weather hot or cold
     // tripDuration it will help us to calculate the number of item we need
@@ -23,24 +27,26 @@ const NewTrip = ({onNewTrip}) => {
         setTripDepDay("")
         setTripDuration(0)
         setNbOfPersons(0)
+        setTripData({});
+        setReceivedData(false);
     } // end of onSubmit
 
     const getData = async () => {
-        console.log(destination);
-        console.log(tripDepDay);
-        console.log(tripDuration);
-        console.log(nbOfPersons);
-        let requestURL = "http://localhost/6000/plan_trip?dest=" + destination
-                                                                +"&date=" + String(tripDepDay)
+    
+        let requestURL = "http://localhost:6005/plan_trip?destination=" + String(destination)
+                                                                +"&departure=" + String(tripDepDay)
                                                                 +"&duration=" + String(tripDuration)
-                                                                +"&nrPersons=" + String(nbOfPersons);
+                                                                +"&nrPeople=" + String(nbOfPersons);
         console.log(requestURL);
-        // const res = await fetch(requestURL);
+        axios.get(requestURL).then(response => {
+            setTripData(response["data"]);
+            setReceivedData(true);
+        });
         //http://localhost/6000/plan_trip?dest=rom&date=2021-08-22&duration=5&nrPersons=3
-
     }
 
     return (
+        <div>
         <form className = "trip-form" onSubmit={onSubmit}>
             <div className = "form-control">
                 <label>Destination</label>
@@ -84,6 +90,10 @@ const NewTrip = ({onNewTrip}) => {
 
             <input type="submit" value="Display items to pack"  className = "submitBtn" onClick={getData}/>
         </form>
+        {
+        receivedData ? <NewPack items={tripData} /> : null
+        }
+        </div>
     )
 }
 

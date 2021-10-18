@@ -1,6 +1,6 @@
 import { useState } from "react";
 import * as React from 'react';
-const NewPack = ({onNewPack}) =>{
+const NewPack = (items) =>{
     // display item name (one with the selected characteristic
     // ex:cold/ hot or beach/mountain)
     // const[ itemName , setItemName ] = useState("");
@@ -9,6 +9,17 @@ const NewPack = ({onNewPack}) =>{
     // display number of those items
     const[nbItemSelected , setNbItemSelected] = useState();
 
+    console.log(items);
+
+    const itemsToPack = items.items.map((item) => {
+        return(
+        <tr>
+            <td>{item.denumire}</td>
+            <td>{item.nrBuc}</td>
+            <td><input type="checkbox" /></td>
+        </tr>
+        );
+    });
 
     return(
         <form className = "pack-form">
@@ -21,11 +32,7 @@ const NewPack = ({onNewPack}) =>{
                         <th>Is packed</th>
                     </tr>
                 </thead>
-                <tr>
-                    <td>Item</td>
-                    <td>5</td>
-                    <td>true</td>
-                </tr>
+                {itemsToPack}
               </table>
             </div>
         </form>

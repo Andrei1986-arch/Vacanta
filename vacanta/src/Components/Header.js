@@ -1,17 +1,18 @@
 import PropTypes from 'prop-types'
-import ButtonAdmin from './ButtonAdmin'
-import  ButtonTrip  from './ButtonTrip'
+import  Button  from './Button'
 import headerImage from "./images/headerImage.jpg"
 
-const Header = ({title , onNewTrip ,  onAdminLogin}) => {
+
+const Header = ({title , onLogin , onRegister , onNewTrip }) => {
   
     <img src={ headerImage }></img>
 
     return (
-        <header className="header">
+        <header className="header" >
             <h1>{title}</h1>
-            <ButtonTrip color="green" text="Set new trip" onClick={onNewTrip}/>
-            <ButtonAdmin color="red" text="Admin login" onClick={onAdminLogin}/>
+            <Button color="green" text="Set new trip" onClick={onNewTrip}/>
+            <Button color="red" text="User Login" onClick={onLogin}/>
+            <Button color="blue" text="Register" onClick={onRegister} />
         </header>
     )
 }
@@ -21,6 +22,7 @@ Header.defaultProps = {
 }
 
 Header.propTypes = {
-    title:PropTypes.string
+    title:PropTypes.string,
+    onClick:PropTypes.func
 }
 export default Header

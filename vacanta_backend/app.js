@@ -2,6 +2,9 @@
 const express = require('express');
 const {queryAsync} = require('./database_query.js');
 const bodyParser = require('body-parser');
+const { procesare } = require('./procesare.js');
+const nodemailer = require("nodemailer");
+const bcrypt = require('bcryptjs');
 
 // instantiem express
 const app = express();
@@ -44,12 +47,12 @@ router.post("/add_country", async(req, response) => {
         response.send("Error");
     }
 });
-
+// se introduce in exact aceeasi ordine ca in BD si cu exact acelasi nume ca in BD
 router.post("/add_bagaj", async(req, response) => {
     let query_text = "INSERT INTO bagaje(denumire , tip_bagaj , volum , nr_buc_necesare , durata_folosire) VALUES($1,$2,$3,$4,$5);";
     let tip_bagaj = req.query.tip_bagaj;
     let denumire = req.query.denumire;
-    let volum = req.query.volum;
+    let volum = req.query.volum; 
     let nr_buc_necesare = req.query.nr_buc_necesare;
     let durata_folosire = req.query.durata_folosire;
      
@@ -95,10 +98,10 @@ router.get("/delete_country/:name", async (req, response) => {
 // GET -> /delete_country?temp=28
 router.get("/delete_country", async (req, response) => {
     let query_text = "DELETE FROM countries where country_temp=$1;";
-    let temp = req.query.temp;
+    let medTemp = req.query.temp;
 
     if (req.params.name) {
-        let result = await queryAsync(query_text , [temp]);
+        let result = await queryAsync(query_text , [medTemp]);
         //                                           ^ vector de parametri cu un singur parametru => $1
         console.log(req.params.name);
     }  
@@ -108,23 +111,84 @@ router.get("/delete_country", async (req, response) => {
 //*********************
 // termin get 
 //
-
+// Rezolve CORS error
 router.get("/plan_trip", async (req, response) => {
-    let query_text = "DELETE FROM countries where country_temp=$1;";
-    //http://localhost/6000/plan_trip?dest=rom&date=2021-08-22&duration=5&nrPersons=3
-    let destination = req.query.dest;
-    let tripDepDay = req.query.date;
+    response.set('Access-Control-Allow-Origin', req.headers.origin);
+    if (req.query && req.query.destination && req.query.departure && req.query.duration && req.query.nrPeople) {
+        let query_text = "SELECT * FROM countries WHERE country_name=$1;";
+        //http://localhost/6000/plan_trip?dest=rom&date=2021-08-22&duration=5&nrPersons=3
+        let destination = req.query.destination;
+        let tripDepDay = req.query.departure;
+        let tripDuration = req.query.duration;
+        let nrPeople = req.query.nrPeople;
+        let result = "";
+        
+        destination =  destination.toLowerCase();
+        destination = destination.charAt(0).toUpperCase() + destination.slice(1);
+        console.log(req.query);
+        // ex: query_text + parametri (in cazul meu este unul singur "destination")
+        //  este ceea ce trimit catre baza de date IAR baza de date face procesarea (adica imi Verifica
+        // daca tara se afla in DB )
+        result = await queryAsync(query_text , [destination]);
+        //                                         ^ vector de parametri cu un singur parametru => $1
+        if(result.length > 0){
+            let country_type = result[0].country_type;
+            query_text = "SELECT * FROM bagaje where tip_bagaj=$1;"
+            result = await queryAsync(query_text , [country_type]);
+            result = procesare(result , tripDuration , nrPeople)
+        } else {
+            result = "Location not in the database.";
+        }
 
-    if (req.params.name) {
-        let result = await queryAsync(query_text , [temp]);
-        //                                           ^ vector de parametri cu un singur parametru => $1
-        console.log(req.params.name);
-    }  
-    response.send(req.params.name);
+        response.send(result);
+    } else {
+        response.send("Check if al fields are filled correctly!");
+    }
+     
+ 
 });
 
-// ii spun em app sa utilizeze routerul definit de noi
+router.post("/register", async (req, response) => {
+    response.set('Access-Control-Allow-Origin', req.headers.origin);
+    let username = req.query.username;
+    let email = req.query.email;
+    let pass = req.query.password;
+    
+    let query_text = "SELECT username FROM users WHERE username=$1 OR email=$2";
+     let result = await queryAsync(query_text , [username, email]);
+
+    if(result.length === 0){
+        query_text = "INSERT INTO users (username , email , password , is_activated , user_type)  \
+                    values ($1 , $2 , $3 ,$4 ,$5);" ;
+        result = await queryAsync(query_text , [username , email , pass , false , 0]);
+        response.send("Registerd user successfully!");
+    } else {
+        response.send("Username or Email already taken.");
+    }
+    
+});
+
+router.post("/login", async (req, response) => {
+    response.set('Access-Control-Allow-Origin', req.headers.origin);
+    let userIdentity = req.query.userIdentity;
+    let userPassword = req.query.userPassword;
+
+    let query_text = "SELECT username,email,password from users where username=$1 or email=$1;";
+    let result = await queryAsync(query_text , [userIdentity]);
+
+    if(result.length > 0){
+        let storedPassword = result[0]["password"];
+        const passwordsMatch = bcrypt.compareSync(userPassword, storedPassword);
+        console.log(storedPassword);
+        console.log(userPassword);
+        console.log(passwordsMatch);
+    }else {
+        response.send("user do not exist");
+    }
+});
+
+// ii spunem app sa utilizeze routerul definit de noi
 
 app.use("/" , router);
 console.log("server started");
-app.listen(6000);
+app.listen(6005);
