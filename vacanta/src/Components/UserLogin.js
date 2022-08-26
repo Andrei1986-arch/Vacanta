@@ -44,17 +44,15 @@ const UserLogin = () => {
 
     return (
         <div>
-            <form action="" className="form-admin" onSubmit={handleSubmit}>
-                <label className="label-admin" htmlFor="username">UserName or email</label>
+            <form action="" className="form-control" onSubmit={handleSubmit}>
+                <label  htmlFor="username">UserName or email</label>
                 <input 
-                    className="input-admin" 
                     type="text" 
                     placeholder="username or email"
                     onChange={(e) => setUserIdentity(e.target.value)}
                 />
-                <label className="label-admin" htmlFor="password">Password</label>
+                <label htmlFor="password">Password</label>
                 <input  
-                    className="input-admin" 
                     type="password"
                     placeholder="password here ..."
                     onChange={(e) => setUserPassword(e.target.value)} 

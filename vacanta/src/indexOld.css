@@ -1,0 +1,168 @@
+:root {
+  --borderRadius: 5%;
+
+  --gray-10: rgb(233, 233, 233);
+  --gray-20: rgb(201, 201, 201);
+  --gray-50: rgb(102, 102, 102);
+
+  --blue-100: rgba(11, 2, 133, 0.883);
+  --blue-60: rgb(50, 104, 255);
+  --blue-10: rgb(240, 248, 255);
+
+  --yellow: rgb(224, 202, 129);
+  --yellow-light: rgb(250, 238, 220);
+}
+
+html {
+  background-color: var(--yellow-light);
+  margin: 0 auto;
+}
+
+.container {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  border-radius: var(--borderRadius);
+  display: flex;
+  background-color: var(--yellow-light);
+  max-width: 1280px;
+  min-height: 90vw;
+  margin: 0 auto;
+  flex-direction: column;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+/* HEADER STYLE*/
+.header {
+  border-radius: var(--borderRadius);
+  background-color: var(--blue-100);
+  margin-bottom: 20px;
+}
+
+.header #header-title {
+  border-radius: var(--borderRadius);
+  display: flex;
+  justify-content: center;
+  text-shadow: rgba(188, 238, 221, 0.329);
+  font-size: larger;
+  color: rgb(224, 202, 129);
+  font-style: oblique;
+}
+
+#nav-bar {
+  border-radius: var(--borderRadius);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  margin-left: 5rem;
+  margin-right: 3rem;
+}
+
+.main {
+  border-top-style: none;
+  border-right-style: none;
+  border-bottom-style: solid;
+  border-left-style: none;
+  border-bottom-width: 1rem;
+  border-color: rgb(84, 166, 233);
+  background-color: inherit;
+}
+
+.button {
+  display: inline-block;
+  font-size: 20px;
+  font-family: inherit;
+  font-weight: bold;
+  background: rgb(104, 107, 252);
+  color: var(--blue-10);
+  border-radius: 10px;
+  cursor: pointer;
+  border: none;
+  padding: 1rem 1rem;
+  margin: 1rem;
+}
+
+.button-block {
+  display: flex;
+  width: 35%;
+}
+
+.trip-form {
+  margin: 5px;
+  padding: 10px 20px;
+  font-size: large;
+}
+
+.form-control {
+  background-color: inherit;
+  margin: 20px;
+}
+
+.form-control label {
+  color: var(--gray-50);
+  display: flex;
+  font-size: 18px;
+  width: 35%;
+  padding-left: 2rem;
+}
+
+.form-control input {
+  font-size: 18px;
+  width: 35%;
+  margin: 5px;
+  height: 30px;
+  padding: 3px 5px;
+  
+}
+
+.date input {
+  width: 35%;
+}
+
+.submitBtn {
+  display: block;
+  width: auto;
+  border-radius: 15px;
+  padding: 10px;
+  height: 3em;
+  background-color: rgb(16, 134, 212);
+  color: rgb(228, 227, 216);
+  border: none;
+  font-weight: bold;
+  font-size: large;
+  margin-left: 5%;
+  cursor: pointer;
+}
+
+.pack-form {
+  background-color: rgba(203, 247, 232, 0.685);
+  margin: 10px;
+  padding: 10px;
+}
+
+table {
+  border: 2px, solid, rgb(80, 77, 77);
+  border-collapse: collapse;
+  padding: auto;
+}
+
+table th {
+  border: 1px solid black;
+  padding-left: 2em;
+  padding-right: 2em;
+  text-align: center;
+}
+
+table td {
+  border: 1px solid black;
+  padding-left: 2em;
+  padding-right: 2em;
+  text-align: center;
+}
+
+.pageInfo {
+  margin: 2rem;
+  text-indent: 1.5rem;
+  color: var(--gray-50);
+}

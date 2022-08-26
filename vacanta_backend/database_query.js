@@ -16,9 +16,7 @@ const options = {
 const pool = new Pool(options);
 
 const queryAsync = async (text, params) => {
-    const {
-        rows
-    } = await pool.query(text, params);
+    const { rows } = await pool.query(text, params);
     return rows;
 }
 

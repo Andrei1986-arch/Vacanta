@@ -7,9 +7,6 @@ const NewPack = (items) =>{
 
     // number of items depends on the number of days selected
     // display number of those items
-    const[nbItemSelected , setNbItemSelected] = useState();
-
-    console.log(items);
 
     const itemsToPack = items.items.map((item) => {
         return(

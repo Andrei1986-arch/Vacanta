@@ -9,7 +9,8 @@ const UserRegister = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-
+// endpoint pt trimitere date catre backend
+// 
     
 
     const handleSubmit = (e) => {
@@ -63,33 +64,30 @@ const UserRegister = () => {
 
     return (
         <div>
-            <form className="form-admin" onSubmit={handleSubmit}>
-                <label className="label-admin" htmlFor="username">UserName</label>
-                <input 
-                    className="input-admin" 
+            <form className="form-control" onSubmit={handleSubmit}>
+                <label htmlFor="username">UserName</label>
+                <input
                     type="text" 
                     placeholder="type any characters max 50 ..."
                     onChange={(e) => setUserName(e.target.value)}
                 />
-                <label className="label-admin" htmlFor="email">Email</label>
-                <input  
-                    className="input-admin" 
+                <label htmlFor="email">Email</label>
+                <input   
                     type="email" 
                     placeholder="Enter email address..."
                     onChange={(e) => setEmail(e.target.value)}
                 />
-                <label className="label-admin" htmlFor="password">Password</label>
-                <input  
-                    className="input-admin" 
+                <label  htmlFor="password">Password</label>
+                <input   
                     type="password"
                     placeholder="password here ..."
                     onChange={(e) => setPassword(e.target.value)} 
                 />
-                <button 
+                <button
                     className="submitBtn" 
                     type="submit" 
                     onClick={sendData}
-                    >Submit
+                    > Submit
                 </button>
             </form>
            

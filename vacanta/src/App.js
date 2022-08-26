@@ -1,39 +1,27 @@
-import {useState , useEffect} from "react"
-import './index.css';
-import Header from "./Components/Header"
-import NewTrip from "./Components/NewTrip";
-import UserLogin from"./Components/UserRegister"
-import UserRegister from "./Components/UserLogin";
+import {useState } from "react";
 
+import Header from "./Components/Header";
+import NewTrip from "./Components/NewTrip";
+import UserLogin from"./Components/UserRegister";
+import UserRegister from "./Components/UserLogin";
+import Confirm from "./Components/Confirm";
+
+import { Route, Routes } from 'react-router-dom';
 
 const  App = () => {
-  const[items , setItems] = useState( [] );
   const [toggleRegister , setToggleRegister] = useState(false);
-  const [toggleNewTrip , setToggleNewTrip] = useState(false);
+  const [toggleNewTrip , setToggleNewTrip] = useState(true);
   const [toggleLogin , setTogglelogin] = useState(false);
 
-
-
-  useEffect(() => {
-      const getItems = async() =>{
-        const itemsFromServer = await fetchItems()
-        setItems(itemsFromServer)
-        }
-        getItems()
-    } , [] )
-
-
-  const fetchItems = (destination, departure, duration, nrPeople) => {
-    // const res = await fetch("http://localhost:6000/plan_trip?destination=${destination}&departure=${departure}&duration=${duration}&nrPeople=${nrPeople}")
-    // const data = await res.json();
-    console.log("http://localhost:6003/plan_trip?destination=${destination}&departure=${departure}&duration=${duration}&nrPeople=${nrPeople}");
-    // return data
-  }
-
-
+  
 
   return (
     <div className="container">
+
+      <Routes>
+        <Route path="/confirm/:confirmation" element={< Confirm />}  />
+      </Routes>
+
       <Header 
         title = "Vacationey - Time to pack"
         onRegister = {() => {
@@ -47,7 +35,6 @@ const  App = () => {
           setToggleRegister(false);
           setToggleNewTrip(false);
         }
-
         }
 
         onNewTrip = {() => {
@@ -57,9 +44,13 @@ const  App = () => {
         }}
 
       />
-      {toggleNewTrip && <NewTrip />}
-      {toggleLogin && <UserRegister/>}
-      {toggleRegister &&  <UserLogin />}
+       
+      <div className="main">
+       
+        {toggleNewTrip && <NewTrip />}
+        {toggleLogin && <UserRegister/>}
+        {toggleRegister &&  <UserLogin />}
+      </div>
     </div>
     
   );

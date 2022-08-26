@@ -9,10 +9,18 @@ const Header = ({title , onLogin , onRegister , onNewTrip }) => {
 
     return (
         <header className="header" >
-            <h1>{title}</h1>
-            <Button color="green" text="Set new trip" onClick={onNewTrip}/>
-            <Button color="red" text="User Login" onClick={onLogin}/>
-            <Button color="blue" text="Register" onClick={onRegister} />
+            <div id="header-title">
+                <h1>{title}</h1>
+            </div>
+            <div id="nav-bar">
+                <div>
+                <Button id="new-trip" text="Set new trip" onClick={onNewTrip}/>
+                </div>
+                <div>
+                <Button  text="User Login" onClick={onLogin}/>
+                <Button  text="Register" onClick={onRegister} />
+                </div>
+            </div>
         </header>
     )
 }
